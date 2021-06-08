@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<script src="/webjars/jquery/3.2.0/jquery.min.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <title>Users</title>
+</head>
+<body>
+
+<div align ="center">
+
+    <h2>Users</h2>
+    <table  class="table" th:if="${ not#lists.isEmpty(users)}">
+        <thead class="thead-dark">
+             <tr><th scope="col">Id</th>
+                 <th scope="col">Name</th>
+                 <th scope="col">Password</th>
+                 <th scope="col">Enabled</th>
+                 <th scope="col">Roles</th>
+                 <th scope="col">Edit</th>
+            </tr>
+        </thead>
+
+        <th:block th:each="user : ${users}">
+
+            <tr>
+
+                <td><a  th:text="${user.id}"> ID</a></td>
+                <td><a  th:text="${user.username}"> NAME</a></td>
+                    <td th:text="${user.password}">PASSWORD </td>
+                <td th:text="${user.enabled}">ENABLED </td>
+                <td th:text="${user.getRoleNames()}">ROLES </td>
+<!--                <td th:each="role : ${roles}" th:text="${user.roles[0]}">ROLES </td>-->
+
+                <td>
+
+                      <form th:action="@{'/users/{id}' (id=${user.id})}" th:method="get">
+                          <button th:href="@{/users/}+${user.id}" class="btn page-link "  type="submit" >
+                              <b>EDIT</b>
+                          </button></form>
+                          <br>
+                    <form th:action="@{'/users/delete/{id}' (id=${user.id})}" th:method="delete">
+                          <button th:href="@{/users/delete}+${user.id}" class="btn  btn-danger">DELETE
+                          </button>
+                    </form>
+
+                </td>
+            </tr>
+        </th:block>
+    </table>
+</div>
+
+
+<a th:text="HOME" th:href="${'/home'}"/>
+
+

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<script src="/webjars/jquery/3.2.0/jquery.min.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <title>Menu</title>
+</head>
+<body>
+
+<div align ="center">
+
+    <h2>Menu</h2>
+    <table  class="table" th:if="${ not#lists.isEmpty(menus)}">
+        <thead class="thead-dark">
+             <tr>
+                 <th scope="col">Name</th>
+                 <th scope="col">Description</th>
+                 <th scope="col"></th>
+                 <th scope="col">PRICE</th>
+                 <th scope="col"></th>
+            </tr>
+        </thead>
+
+        <th:block th:each="menu : ${menus}">
+
+            <tr>
+
+                <td><a th:href="@{/menus/}+${menu.id}" th:text="${menu.name}"> NAME</a></td>
+
+
+                    <td th:text="${menu.description}">DESCRIPTION </td>
+                    <td > <img width="130" height="100" th:src="${menu.url}"/> </td>
+                <td th:text="${menu.price}+'$'">Price </td>
+
+                <td>
+                      <form th:action="@{'/order/add/{id}/1' (id=${menu.id})}" th:method="post">
+                          <button class="btn page-link "  type="submit">
+                              <b>Add to order</b>
+                          </button>
+
+                      </form>
+                </td>
+            </tr>
+        </th:block>
+    </table>
+</div>
+
+
+<a href="/home"><input class="btn btn-primary" type="button" value="Home" > </a>
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+
+$(".minusButton").on("click", function(e){
+e.preventDefault();
+menuId=$(this).attr("id");
+qtyInput = $("#quantity"+menuId);
+
+newQty = parseInt(qtyInput.val())-1;
+if(newQty>0) qtyInput.val(newQty);
+});
+
+
+$(".plusButton").on("click", function(e){
+e.preventDefault();
+menuId=$(this).attr("id");
+qtyInput = $("#quantity"+menuId);
+newQty = parseInt(qtyInput.val())+1;
+if(newQty<10) qtyInput.val(newQty);
+});
+});
+
+</script>
+
+<script>
+
+$(document).ready(function(){
+
+});
+
+
+
+
+</script>
+
+
+</body>
+</html>

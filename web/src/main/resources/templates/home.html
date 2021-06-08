@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org",
+xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+<head>
+    <title>Home</title>
+    <link rel="stylesheet" th:href="@{/styles/style.css}" href="../static/styles/style.css">
+</head>
+
+
+
+<body>
+
+<div align="center">
+    <div sec:authorize="isAuthenticated()">
+         <h1>Welcome our Restaurant, <span sec:authentication="name">Username</span></h1>
+
+
+</div>
+    <h1 sec:authorize="isAnonymous()">Welcome to our restaurant!</h1>
+</div>
+<br><br><br><br>
+<div align="center">
+    <a th:href="${'/menus'+'/list'}">Menus</a>
+    <br><br>
+    <a th:href="${'/order'}">Order Cart</a>
+    <br><br>
+    <a sec:authorize="hasAuthority('ADMIN')" th:href="${'/admin'}">Admin</a>
+    <br><br><br><br>
+    <a      sec:authorize="isAuthenticated()"
+            th:href="play" >Play to get a special offer</a>
+
+    <div  sec:authorize="isAnonymous()">
+        <a th:href="register" >Create account to play our game and get a deal!</a>
+        <br>
+        <a th:href="login" >Or Log in here</a></div>
+</div>
+
+<form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post">
+    <input class="btn btn-warning" type="submit" th:value="Logout">
+
+</form>
+</body>
+</html>
