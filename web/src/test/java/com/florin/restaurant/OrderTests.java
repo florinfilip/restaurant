@@ -42,7 +42,7 @@ public class OrderTests {
         private TestEntityManager entityManager;
 
         @Test
-        public void testAddOrderItem() {
+        public void shouldAddOrderItem() {
             Menu menu = entityManager.find(Menu.class, 11);
             User user = entityManager.find(User.class, 4);
 
@@ -55,7 +55,7 @@ public class OrderTests {
             assertTrue(saveOrderItem.getId() > 0);
         }
 
-@Test void removeItem(){
+@Test void shouldremoveItem(){
 
     Menu menu = entityManager.find(Menu.class, 11);
     User user = entityManager.find(User.class, 4);
@@ -76,7 +76,7 @@ public class OrderTests {
 
 
 @Test
-public void createCheckout(){
+public void shouldcreateCheckout(){
     User user = entityManager.find(User.class, 1);
     List<OrderItem> orderItemList=orderRepository.findByUser(user);
 
@@ -93,7 +93,7 @@ public void createCheckout(){
 
 
         @Test
-    public void testGetOrderItemByUser(){
+    public void shouldGetOrderItemByUser(){
             User user = new User();
             user.setId(1);
 

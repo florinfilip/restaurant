@@ -1,5 +1,6 @@
 package com.florin.restaurant;
 
+import com.florin.restaurant.config.CodeGeneratorImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -12,9 +13,10 @@ public class MessageGeneratorImpl implements MessageGenerator {
 
 
     private final Game game;
-
     private final int minNumber;
 
+    @Autowired
+    private CodeGenerator codeGenerator;
 
     @Autowired
     public MessageGeneratorImpl(Game game, @MinNumber int minNumber) {
@@ -44,7 +46,8 @@ public class MessageGeneratorImpl implements MessageGenerator {
     public String getResultMessage() {
 
         if(game.isGameWon()) {
-            return "You guessed it! The number was " + game.getNumber();
+            return new StringBuilder("You guessed it! The number was " + game.getNumber() + "!")
+                    +"\nHere is your reward code: " + codeGenerator.generateRewardCode();
         } else if(game.isGameLost()) {
             return "You lost. The number was " + game.getNumber();
         } else if(!game.isValidNumberRange()) {

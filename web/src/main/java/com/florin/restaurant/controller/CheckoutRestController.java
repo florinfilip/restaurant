@@ -26,8 +26,6 @@ public class CheckoutRestController {
     private final IUserDetailsService userDetailsService;
     private final OrderService orderService;
 
-
-
     @PostMapping(Mappings.CHECKOUT)
     public ResponseEntity readcheckoutOrders(@ModelAttribute(AttributeNames.CHECKOUT_ORDER)
                                    CheckoutOrder checkoutOrder,
@@ -37,7 +35,6 @@ public class CheckoutRestController {
         User user=userDetailsService.getCurrentlyLoggedUser(authentication).getUser();
         List<OrderItem> orderItemList = orderService.findOrderByUser(user);
         checkoutOrder.setOrderItemList(orderItemList);
-
         orderItemList.stream().forEach(order->orderService.deleteOrder(order.getId()));
 
 

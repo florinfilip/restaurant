@@ -42,8 +42,6 @@ public class MenuRestController {
     return new ResponseEntity<>(menuById,HttpStatus.OK);
 }
 
-
-
 @PutMapping (Mappings.MENU)
     public ResponseEntity<Menu> updateMenu(@RequestBody Menu menu){
     Menu updatedMenu = menuService.updateMenu(menu);
